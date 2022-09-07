@@ -54,6 +54,8 @@ log "Export $REQUIREMENTS_FILE from Poetry"
 
 cd "$BUILD_DIR"
 
+cd "$APP_BASE"
+
 EXPORT_PARAMETERS=(--without-hashes --with-credentials)
 
 if [ "${POETRY_EXPORT_DEV_REQUIREMENTS:-0}" != "0" ] ; then
