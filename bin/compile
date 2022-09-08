@@ -54,7 +54,10 @@ log "Export $REQUIREMENTS_FILE from Poetry"
 
 cd "$BUILD_DIR"
 
-cd "$APP_BASE"
+if [ -z "${APP_BASE:-}" ] ; then
+    cd "$APP_BASE"
+    log "APP_BASE Set changing to $APP_BASE."
+fi
 
 EXPORT_PARAMETERS=(--without-hashes --with-credentials)
 

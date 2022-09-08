@@ -4,8 +4,9 @@ set -euo pipefail
 
 BUILD_DIR="$1"
 
-if [ ! -f "$BUILD_DIR/**/poetry.lock" ] ; then
-    exit 1
+if [ test -n "$(find $BUILD_DIR -name 'poetry.lock' -type f -print -quit)" ] ; then
+    echo "Python Poetry"
+    exit 0
 fi
 
-echo "Python Poetry"
+exit 1
