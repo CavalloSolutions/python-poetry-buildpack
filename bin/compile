@@ -50,12 +50,11 @@ fi
 
 cd "$BUILD_DIR"
 
-if [ ! -n "${APP_BASE}" ] ; then
+if [ -z "${APP_BASE:-}" ] ; then
+    log "APP_BASE not set remaining in root."
+else
     cd "$APP_BASE"
     log "APP_BASE Set changing to $APP_BASE."
-
-else
-    log "APP_BASE not set remaining in root."
 fi
 
 REQUIREMENTS_FILE="$BUILD_DIR/requirements.txt"
