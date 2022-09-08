@@ -55,6 +55,8 @@ log "Export $REQUIREMENTS_FILE from Poetry"
 cd "$BUILD_DIR"
 
 if [ -z "${APP_BASE:-}" ] ; then
+    log "APP_BASE not set remaining in root."
+else
     cd "$APP_BASE"
     log "APP_BASE Set changing to $APP_BASE."
 fi
