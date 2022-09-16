@@ -57,7 +57,7 @@ else
     log "APP_BASE Set changing to $APP_BASE."
 fi
 
-if [ -z "${SKIP_PIP_INSTALL:-}" ] ; then
+if [ ! "$SKIP_PIP_INSTALL" ]; then
     REQUIREMENTS_FILE="$BUILD_DIR/requirements.txt"
 
     log "Export $REQUIREMENTS_FILE from Poetry"
