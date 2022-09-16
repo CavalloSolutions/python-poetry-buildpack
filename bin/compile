@@ -58,14 +58,6 @@ else
 fi
 
 if [ -z "${SKIP_PIP_INSTALL:-}" ] ; then
-    log "SKIP_PIP_INSTALL set, using poetry install"
-    if [ "${POETRY_VERSION:0:3}" = "1.2" ] ; then
-        INSTALL_PARAMETERS="--sync"
-    else
-        INSTALL_PARAMETERS="--remove-untracked"
-    fi
-    poetry install "${INSTALL_PARAMETERS[@]}" | indent
-else
     REQUIREMENTS_FILE="$BUILD_DIR/requirements.txt"
 
     log "Export $REQUIREMENTS_FILE from Poetry"
@@ -80,6 +72,14 @@ else
     # poetry exports local dependencies as editable by default (https://github.com/python-poetry/poetry/issues/897)
     poetry export -f requirements.txt "${EXPORT_PARAMETERS[@]}" -o "$REQUIREMENTS_FILE.orig" | indent
     sed -e 's/^-e //' < "$REQUIREMENTS_FILE.orig" > "$REQUIREMENTS_FILE" && rm "$REQUIREMENTS_FILE.orig"
+else
+    log "SKIP_PIP_INSTALL set, using poetry install"
+    if [ "${POETRY_VERSION:0:3}" = "1.2" ] ; then
+        INSTALL_PARAMETERS="--sync"
+    else
+        INSTALL_PARAMETERS="--remove-untracked"
+    fi
+    poetry install "${INSTALL_PARAMETERS[@]}" | indent
 fi
 
 RUNTIME_FILE="$BUILD_DIR/runtime.txt"
